@@ -199,6 +199,11 @@
             divListBooks.append(tabla);;
         }
 
+        function eliminarFila(indice){
+            libros.splice(indice, 1);
+            mostrarTablaDeLibros();
+        }
+
         /** OBJETOS ANTERIORES PARA CONSOLA*/
 
         function muestraTodosLosLibros(libros) {
