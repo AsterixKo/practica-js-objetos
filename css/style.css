@@ -1,0 +1,42 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: lightgray;
+}
+
+.main-container {
+    display: flex;
+    justify-content: center;
+}
+
+.main-container-internal {
+    background-color: lightcyan;
+    max-width: 600px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.add-book-button-anadir {
+    background-color: #008CBA;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.add-book-actions {
+    margin-top: 10px;
+}
+
+.error{
+    color: red;
+}

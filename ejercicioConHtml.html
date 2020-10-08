@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Librería</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="main-container-internal">
+            <div class="add-book">
+                <div class="add-book-header">
+                    <h1>Añade un libro</h1>
+                </div>
+                <div class="add-book-container-titulo">
+                    <h2>Título:</h2>
+                    <input id="id-titulo" type="text" placeholder="Introduce un título..." />
+                    <div id="id-add-book-error-message-titulo" class="add-book-error-messages"></div>
+                </div>
+                <div class="add-book-container-autor">
+                    <h2>Autor:</h2>
+                    <input id="id-autor" type="text" placeholder="Introduce un autor..." />
+                    <div id="id-add-book-error-message-autor" class="add-book-error-messages"></div>
+                </div>
+                <div class="add-book-container-año">
+                    <h2>Año:</h2>
+                    <input id="id-anio" type="text" placeholder="Introduce un año..." />
+                    <div id="id-add-book-error-message-anio" class="add-book-error-messages"></div>
+                </div>
+                <div class="add-book-container-genero">
+                    <h2>Género:</h2>
+                    <input id="id-genero" type="text" placeholder="Introduce un género..." />
+                    <div id="id-add-book-error-message-genero" class="add-book-error-messages"></div>
+                </div>
+                <div class="add-book-actions">
+                    <button class="add-book-button-anadir" type="button" onclick="addLibro();">Añadir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        //         PRÁCTICA OBJETOS Y CLASES
+
+        // -Crea una clase Libro
+        // -La clase libro tendrá título, autor, año y género.
+        // -Crea un método que devuelva toda la información del libro
+        // -Pide 3 libros y guárdalos en un array
+        // -Los libros se introducirán al arrancar el programa pidiendo los datos con prompt.
+
+        // -Validar que los campos no se introduzcan vacíos
+        // -Validar que el año sea un número y que tenga 4 dígitos
+        // -Validar que el género sea: aventuras, terror o fantasía
+
+        // -Crea una función que muestre todos los libros
+        // -Crea una función que muestre los autores ordenados alfabéticamente
+        // -Crea una función que pida un género y muestre la información de los
+        // libros que pertenezcan a ese género usando un el método que devuelve la información
+        class Libro {
+            constructor(titulo, autor, anio, genero) {
+                this.titulo = titulo;
+                this.autor = autor;
+                this.anio = anio;
+                this.genero = genero;
+            }
+            getInfo() {
+                return `titulo: "${this.titulo}"; autor: "${this.autor}"; anio: "${this.anio}"; genero: "${this.genero}"`;
+            }
+        }
+
+
+        // let libros = [new Libro('titulo1', 'Juan', '1934', 'aventuras'),
+        // new Libro('titulo2', 'Maria', '3744', 'terror'),
+        // new Libro('titulo3', 'Laura', '5678', 'terror')];
+
+        let libros = [];
+
+        // muestraTodosLosLibros(libros);
+        // muestraAutoresOrdenadosAlfabeticamente(libros);
+        // muestraLibrosDelGeneroIndicado('terror');
+
+        function addLibro() {
+            limpiaErrores();
+
+            let hayErrores = false;
+
+            let titulo = $('#id-titulo').val();
+            if (titulo === null || titulo.length == 0 || titulo.trim() === "") {
+                const error = 'Error: debe introducir un título';
+                $('#id-add-book-error-message-titulo').append(`<p class="error">${error}</p>`);
+                hayErrores = true;
+            }
+
+            let autor = $('#id-autor').val();
+            if (autor === null || autor.length == 0 || autor.trim() === "") {
+                const error = 'Error: debe introducir un autor';
+                $('#id-add-book-error-message-autor').append(`<p class="error">${error}</p>`);
+                hayErrores = true;
+            }
+
+            let anio = $('#id-anio').val();
+            if (anio === null || anio.length == 0 || anio.trim() === "") {
+                const error = 'Error: debe introducir un año';
+                $('#id-add-book-error-message-anio').append(`<p class="error">${error}</p>`);
+                hayErrores = true;
+            } else {
+                if (anio.length != 4) {
+                    const errorCuatroDigitos = 'Error: el año debe tener al menos 4 digitos';
+                    $('#id-add-book-error-message-anio').append(`<p class="error">${errorCuatroDigitos}</p>`);
+                    hayErrores = true;
+                }
+                if (isNaN(anio)) {
+                    const errorNumerico = 'Error: el año debe ser númerico';
+                    $('#id-add-book-error-message-anio').append(`<p class="error">${errorNumerico}</p>`);
+                    hayErrores = true;
+                }
+            }
+
+            let genero = $('#id-genero').val();
+            if (genero === null || genero.length == 0 || genero.trim() === "") {
+                const errorGenero = 'Error: debe introducir un genero';
+                $('#id-add-book-error-message-genero').append(`<p class="error">${errorGenero}</p>`);
+                hayErrores = true;
+            } else {
+                const generos = ['aventuras', 'terror', 'fantasía'];
+                let generoMinuscula = genero.toLocaleLowerCase();
+                let esGeneroValido = false;
+
+                for (let i = 0; i < generos.length && !esGeneroValido; i++) {
+                    if (generos[i] === generoMinuscula) {
+                        esGeneroValido = true;
+                    }
+                }
+
+                if (!esGeneroValido) {
+                    const errorGeneroRango = 'El género no es valido, debe ser aventuras, terror o fantasía';
+                    $('#id-add-book-error-message-genero').append(`<p class="error">${errorGeneroRango}</p>`);
+                    hayErrores = true;
+                }
+            }
+
+
+            if (!hayErrores) {
+                console.log('No hay errores');
+                let libro = new Libro(titulo, autor, anio, genero);
+                libros.push(libro);
+                limpiaValoresInput();
+            }
+
+        }
+
+        function limpiaErrores() {
+            $('#id-add-book-error-message-titulo').empty();
+            $('#id-add-book-error-message-autor').empty();
+            $('#id-add-book-error-message-anio').empty();
+            $('#id-add-book-error-message-genero').empty();
+        }
+
+        function limpiaValoresInput() {
+            console.log('limpiaValoresInput');
+            $('#id-titulo').val('');
+            $('#id-autor').val('');
+            $('#id-anio').val('');
+            $('#id-genero').val('');
+        }
+
+        function muestraTodosLosLibros(libros) {
+            for (const libro of libros) {
+                console.log(libro.getInfo());
+            }
+        }
+
+        function muestraAutoresOrdenadosAlfabeticamente(libros) {
+            libros.sort(function (a, b) {
+                let textA = a.autor.toUpperCase();
+                let textB = b.autor.toUpperCase();
+                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+            });
+
+            const librosOrdenados = libros.sort();
+
+            console.log('Autores ordenados alfabéticamente');
+            for (let i = 0; i < librosOrdenados.length; i++) {
+                console.log(librosOrdenados[i].getInfo());
+            }
+        }
+
+        function muestraLibrosDelGeneroIndicado(genero) {
+            console.log(`Libros del género ${genero}`);
+            for (const libro of libros) {
+                if (genero === libro.genero) {
+                    console.log(libro.getInfo());
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
