@@ -47,6 +47,10 @@
             <div class="list-books-header">
                 <h2>Listado de libros</h2>
             </div>
+            <div class="list-books-header-actions">
+                <button type="button" class="list-books-header-action-button"
+                    onclick="clickOrdenaLibrosAlfabeticamentePorAutor();">Ordenar alfabéticamente</button>
+            </div>
             <div id="id-list-books" class="list-books">
 
             </div>
@@ -90,11 +94,19 @@
         }
 
 
-        // let libros = [new Libro('titulo1', 'Juan', '1934', 'aventuras'),
-        // new Libro('titulo2', 'Maria', '3744', 'terror'),
-        // new Libro('titulo3', 'Laura', '5678', 'terror')];
+        let libros = [new Libro('Alicia en el país de las maravillas', 'Lewis Carroll', '1865', 'aventuras'),
+            new Libro('El señor de los anillos', 'J.R.R. Tolkien', '1954 ', 'fantasía'),
+            new Libro('American gods', 'Neil Gaiman', '2001 ', 'fantasía'),
+            new Libro('Apartamento 16', 'Adam Nevill', '2011', 'terror'),
+            new Libro('Carrie', 'Stephen King', '1974', 'terror'),
+            new Libro('La isla del tesoro', 'Young Folk', '1883', 'aventuras'),
+            new Libro('Viaje al centro de la tierra', 'Julio Verne', '1864', 'aventuras'),
+            new Libro('Veinte mil leguas de viaje submarino', 'Julio Verne', '1870', 'aventuras'),
+            new Libro('La vuelta al mundo en 80 días', 'Julio Verne', '1972', 'aventuras')
+        ];
+        mostrarTablaDeLibros();
 
-        let libros = [];
+        // let libros = [];
 
         // muestraTodosLosLibros(libros);
         // muestraAutoresOrdenadosAlfabeticamente(libros);
@@ -186,12 +198,14 @@
             $('#id-genero').val('');
         }
 
-        function mostrarTablaDeLibros(){
-            let divListBooks = $('#id-list-books').empty();//vaciamos el div
-            let tabla = '<table style="width:100%"><tr><th>Titulo</th><th>Autor</th><th>Año</th><th>Género</th><th>Acciones</th></tr>';
-            let index=0;
+        function mostrarTablaDeLibros() {
+            let divListBooks = $('#id-list-books').empty(); //vaciamos el div
+            let tabla =
+                '<table style="width:100%"><tr><th>Titulo</th><th>Autor</th><th>Año</th><th>Género</th><th>Acciones</th></tr>';
+            let index = 0;
             for (const libro of libros) {
-                const line = `<tr><td>${libro.titulo}</td><td>${libro.autor}</td><td>${libro.anio}</td><td>${libro.genero}</td><td><button type="button" class="button-delete" onclick="eliminarFila('${index}');">Eliminar</button></td></tr>`;
+                const line =
+                    `<tr><td>${libro.titulo}</td><td>${libro.autor}</td><td>${libro.anio}</td><td>${libro.genero}</td><td><button type="button" class="button-delete" onclick="eliminarFila('${index}');">Eliminar</button></td></tr>`;
                 tabla += line;
                 index++;
             }
@@ -199,8 +213,19 @@
             divListBooks.append(tabla);;
         }
 
-        function eliminarFila(indice){
+        function eliminarFila(indice) {
             libros.splice(indice, 1);
+            mostrarTablaDeLibros();
+        }
+
+        function clickOrdenaLibrosAlfabeticamentePorAutor() {
+            libros.sort(function (a, b) {
+                let textA = a.autor.toUpperCase();
+                let textB = b.autor.toUpperCase();
+                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+            });
+
+            libros = libros.sort();
             mostrarTablaDeLibros();
         }
 
