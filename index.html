@@ -37,7 +37,7 @@
             }
         }
 
-        
+
         // let libros = [new Libro('titulo1', 'Juan', '1934', 'aventuras'),
         // new Libro('titulo2', 'Maria', '3744', 'terror'),
         // new Libro('titulo3', 'Laura', '5678', 'terror')];
@@ -111,25 +111,25 @@
             }
         }
 
-        function muestraAutoresOrdenadosAlfabeticamente(libros){
-            libros.sort(function (a, b){
+        function muestraAutoresOrdenadosAlfabeticamente(libros) {
+            libros.sort(function (a, b) {
                 let textA = a.autor.toUpperCase();
                 let textB = b.autor.toUpperCase();
                 return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
             });
 
             const librosOrdenados = libros.sort();
-            
+
             console.log('Autores ordenados alfabéticamente');
-            for(let i = 0; i<librosOrdenados.length; i++){
+            for (let i = 0; i < librosOrdenados.length; i++) {
                 console.log(librosOrdenados[i].getInfo());
             }
         }
 
-        function muestraLibrosDelGeneroIndicado(genero){
+        function muestraLibrosDelGeneroIndicado(genero) {
             console.log(`Libros del género ${genero}`);
             for (const libro of libros) {
-                if(genero === libro.genero){
+                if (genero === libro.genero) {
                     console.log(libro.getInfo());
                 }
             }
