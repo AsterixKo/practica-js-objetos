@@ -50,9 +50,18 @@
             <div class="list-books-header-actions">
                 <button type="button" class="list-books-header-action-button"
                     onclick="clickOrdenaLibrosAlfabeticamentePorAutor();">Ordenar alfabéticamente</button>
+                <label for="generos">Filtra por género:</label>
+                <select name="generos" id="id-genre" onchange="cambiarFiltroGenero();">
+                    <option value="" selected disabled hidden>Selecciona</option>
+                    <option value="aventuras">Aventuras</option>
+                    <option value="fantasía">Fantasía</option>
+                    <option value="terror">Terror</option>
+                </select>
+                <button type="button" class="list-books-header-action-button" onclick="clickLimpiarFiltro();">Eliminar
+                    filtro</button>
             </div>
-            <div id="id-list-books" class="list-books">
 
+            <div id="id-list-books" class="list-books">
             </div>
         </div>
     </div>
@@ -104,7 +113,7 @@
             new Libro('Veinte mil leguas de viaje submarino', 'Julio Verne', '1870', 'aventuras'),
             new Libro('La vuelta al mundo en 80 días', 'Julio Verne', '1972', 'aventuras')
         ];
-        mostrarTablaDeLibros();
+        mostrarTablaDeLibros(libros);
 
         // let libros = [];
 
@@ -178,7 +187,7 @@
                 let libro = new Libro(titulo, autor, anio, genero);
                 libros.push(libro);
                 limpiaValoresInput();
-                mostrarTablaDeLibros();
+                mostrarTablaDeLibros(libros);
             }
 
         }
@@ -198,24 +207,24 @@
             $('#id-genero').val('');
         }
 
-        function mostrarTablaDeLibros() {
+        function mostrarTablaDeLibros(arrayLibros) {
             let divListBooks = $('#id-list-books').empty(); //vaciamos el div
             let tabla =
                 '<table style="width:100%"><tr><th>Titulo</th><th>Autor</th><th>Año</th><th>Género</th><th>Acciones</th></tr>';
             let index = 0;
-            for (const libro of libros) {
+            for (const libro of arrayLibros) {
                 const line =
                     `<tr><td>${libro.titulo}</td><td>${libro.autor}</td><td>${libro.anio}</td><td>${libro.genero}</td><td><button type="button" class="button-delete" onclick="eliminarFila('${index}');">Eliminar</button></td></tr>`;
                 tabla += line;
                 index++;
             }
             tabla += '</table>';
-            divListBooks.append(tabla);;
+            divListBooks.append(tabla);
         }
 
         function eliminarFila(indice) {
             libros.splice(indice, 1);
-            mostrarTablaDeLibros();
+            mostrarTablaDeLibros(libros);
         }
 
         function clickOrdenaLibrosAlfabeticamentePorAutor() {
@@ -226,7 +235,21 @@
             });
 
             libros = libros.sort();
-            mostrarTablaDeLibros();
+            mostrarTablaDeLibros(libros);
+        }
+
+        function cambiarFiltroGenero() {
+            const valorSeleccionado = $('#id-genre').val();
+            console.log('valorSeleccionado:', valorSeleccionado);
+
+            const nuevoArrayLibros = libros.filter(function (lib) {
+                return lib.genero === valorSeleccionado;
+            });
+            mostrarTablaDeLibros(nuevoArrayLibros);
+        }
+
+        function clickLimpiarFiltro() {
+            mostrarTablaDeLibros(libros);
         }
 
         /** OBJETOS ANTERIORES PARA CONSOLA*/
