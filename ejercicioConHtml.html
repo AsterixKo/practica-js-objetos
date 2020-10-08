@@ -48,8 +48,8 @@
                 <h2>Listado de libros</h2>
             </div>
             <div class="list-books-header-actions">
-                <button type="button" class="list-books-header-action-button"
-                    onclick="clickOrdenaLibrosAlfabeticamentePorAutor();">Ordenar alfabéticamente</button>
+                <button type="button" class="list-books-header-action-button button button5"
+                    onclick="clickOrdenaLibrosAlfabeticamentePorAutor();">Ordenar alfabéticamente</button><br>
                 <label for="generos">Filtra por género:</label>
                 <select name="generos" id="id-genre" onchange="cambiarFiltroGenero();">
                     <option value="" selected disabled hidden>Selecciona</option>
@@ -57,7 +57,7 @@
                     <option value="fantasía">Fantasía</option>
                     <option value="terror">Terror</option>
                 </select>
-                <button type="button" class="list-books-header-action-button" onclick="clickLimpiarFiltro();">Eliminar
+                <button type="button" class="list-books-header-action-button button button5" onclick="clickLimpiarFiltro();">Eliminar
                     filtro</button>
             </div>
 
@@ -210,11 +210,11 @@
         function mostrarTablaDeLibros(arrayLibros) {
             let divListBooks = $('#id-list-books').empty(); //vaciamos el div
             let tabla =
-                '<table style="width:100%"><tr><th>Titulo</th><th>Autor</th><th>Año</th><th>Género</th><th>Acciones</th></tr>';
+                '<table id="id-list-books-table"><tr><th>Titulo</th><th>Autor</th><th>Año</th><th>Género</th><th>Acciones</th></tr>';
             let index = 0;
             for (const libro of arrayLibros) {
                 const line =
-                    `<tr><td>${libro.titulo}</td><td>${libro.autor}</td><td>${libro.anio}</td><td>${libro.genero}</td><td><button type="button" class="button-delete" onclick="eliminarFila('${index}');">Eliminar</button></td></tr>`;
+                    `<tr><td>${libro.titulo}</td><td>${libro.autor}</td><td>${libro.anio}</td><td>${libro.genero}</td><td><button type="button" class="button-delete button button3" onclick="eliminarFila('${index}');">Eliminar</button></td></tr>`;
                 tabla += line;
                 index++;
             }
