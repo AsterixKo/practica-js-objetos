@@ -41,6 +41,18 @@
             </div>
         </div>
     </div>
+
+    <div class="list-books-container">
+        <div class="list-books-container-internal">
+            <div class="list-books-header">
+                <h2>Listado de libros</h2>
+            </div>
+            <div id="id-list-books" class="list-books">
+
+            </div>
+        </div>
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         //         PRÁCTICA OBJETOS Y CLASES
@@ -61,10 +73,10 @@
         // libros que pertenezcan a ese género usando un el método que devuelve la información
         // PARTE NUEVA DE HTML-JS-OBJETOS-JQUERY:
         // -Mostrar un listado de los libros.
-        // -Que se puedan eliminar libros.
+        // -Que se puedan eliminar libros con un botón.
         // -Boton de ordenar libros alfabéticamente por autores.
         // -Filtrar por género.
-        
+
         class Libro {
             constructor(titulo, autor, anio, genero) {
                 this.titulo = titulo;
@@ -154,6 +166,7 @@
                 let libro = new Libro(titulo, autor, anio, genero);
                 libros.push(libro);
                 limpiaValoresInput();
+                mostrarTablaDeLibros();
             }
 
         }
@@ -172,6 +185,21 @@
             $('#id-anio').val('');
             $('#id-genero').val('');
         }
+
+        function mostrarTablaDeLibros(){
+            let divListBooks = $('#id-list-books').empty();//vaciamos el div
+            let tabla = '<table style="width:100%"><tr><th>Titulo</th><th>Autor</th><th>Año</th><th>Género</th><th>Acciones</th></tr>';
+            let index=0;
+            for (const libro of libros) {
+                const line = `<tr><td>${libro.titulo}</td><td>${libro.autor}</td><td>${libro.anio}</td><td>${libro.genero}</td><td><button type="button" class="button-delete" onclick="eliminarFila('${index}');">Eliminar</button></td></tr>`;
+                tabla += line;
+                index++;
+            }
+            tabla += '</table>';
+            divListBooks.append(tabla);;
+        }
+
+        /** OBJETOS ANTERIORES PARA CONSOLA*/
 
         function muestraTodosLosLibros(libros) {
             for (const libro of libros) {
